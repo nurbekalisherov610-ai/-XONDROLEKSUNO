@@ -1959,8 +1959,13 @@
             }
             .wheel-frame { width: min(320px, 85vw); height: min(320px, 85vw); }
             
+            .about-grid, .discount-grid { grid-template-columns: 1fr; gap: 40px; }
+            .discount-grid .wheel-container { order: 2; }
+            .discount-grid .discount-info { order: 1; text-align: center; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
             .footer-grid { grid-template-columns: repeat(2, 1fr); padding-bottom: 40px; }
+            .problems-grid { grid-template-columns: repeat(2, 1fr); }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
@@ -1971,16 +1976,25 @@
 
             .ingredients-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
             .results-grid { grid-template-columns: 1fr; gap: 24px; }
+            .problems-grid { grid-template-columns: 1fr; gap: 16px; }
+            .benefits-grid { grid-template-columns: 1fr; gap: 16px; }
             
             .hero { padding-top: 40px; padding-bottom: 60px; }
             .hero h1 { font-size: clamp(1.8rem, 8vw, 2.5rem); }
-            .hero-actions { flex-direction: column; width: 100%; align-items: stretch; }
+            .hero-actions { flex-direction: column; width: 100%; align-items: stretch; gap: 14px; }
+            
+            .btn { white-space: normal; line-height: 1.4; text-align: center; justify-content: center; padding: 12px 20px; height: auto; flex-wrap: wrap; }
             .hero-actions .btn { width: 100%; }
 
             .discount-section { padding: 60px 0; }
             .comparison-table-wrap { overflow-x: auto; margin: 0 -18px; padding: 0 18px; }
             
             .modal { padding: 40px 24px; width: 95%; max-width: 400px; }
+            .notif-popup { max-width: calc(100vw - 40px); left: 20px; bottom: 90px; }
+            
+            .step { grid-template-columns: 48px 1fr; gap: 16px; }
+            .step-num-wrap { width: 48px; height: 48px; min-width: 48px; font-size: 1.2rem; }
+            .step:not(:last-child)::before { top: 48px; left: 23px; }
         }
 
         @media (max-width: 480px) {
@@ -1996,6 +2010,14 @@
                 height: 1px;
                 background: var(--gray-100);
             }
+            .discount-guaranteed-box { flex-direction: column; text-align: center; gap: 10px; }
+            .float-order { bottom: 20px; right: 20px; }
+            .float-order .btn { font-size: 0.85rem; padding: 10px 16px; }
+            .notif-popup { padding: 12px; gap: 10px; }
+            .notif-dot { width: 36px; height: 36px; font-size: 0.8rem; }
+            .notif-text h6 { font-size: 0.78rem; }
+            .notif-text p { font-size: 0.7rem; }
+            .notif-time { font-size: 0.65rem; }
         }
     </style>
 </head>
