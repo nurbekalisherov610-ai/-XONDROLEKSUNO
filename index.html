@@ -2030,11 +2030,13 @@
     <!-- Announcement Bar -->
     <div class="announce-bar" aria-label="E'lon">
         <div class="announce-track">
-            <div class="announce-item"><i class="fas fa-fire-alt"></i> BUGUN: 70% chegirma faqat shu kunda! <span class="announce-dot"></span></div>
+            <div class="announce-item"><i class="fas fa-fire-alt"></i> BUGUN: 70% gacha maxsus chegirmalar! <span class="announce-dot"></span></div>
+
             <div class="announce-item"><i class="fas fa-truck-fast"></i> O'zbekiston bo'ylab bepul yetkazib berish! <span class="announce-dot"></span></div>
             <div class="announce-item"><i class="fas fa-shield-halved"></i> 100% tabiiy — yon ta'siri yo'q! <span class="announce-dot"></span></div>
             <div class="announce-item"><i class="fas fa-star"></i> 50,000+ mamnun mijoz! <span class="announce-dot"></span></div>
-            <div class="announce-item"><i class="fas fa-fire-alt"></i> BUGUN: 70% chegirma faqat shu kunda! <span class="announce-dot"></span></div>
+            <div class="announce-item"><i class="fas fa-fire-alt"></i> BUGUN: 70% gacha maxsus chegirmalar! <span class="announce-dot"></span></div>
+
             <div class="announce-item"><i class="fas fa-truck-fast"></i> O'zbekiston bo'ylab bepul yetkazib berish! <span class="announce-dot"></span></div>
             <div class="announce-item"><i class="fas fa-shield-halved"></i> 100% tabiiy — yon ta'siri yo'q! <span class="announce-dot"></span></div>
             <div class="announce-item"><i class="fas fa-star"></i> 50,000+ mamnun mijoz! <span class="announce-dot"></span></div>
@@ -2153,8 +2155,9 @@
                         <div class="hero-float-badge badge-top">
                             <div class="badge-icon gold"><i class="fas fa-percent"></i></div>
                             <div class="badge-text">
-                                <strong>70% Chegirma</strong>
-                                <span>bugungi limit!</span>
+                                <strong>70% gacha</strong>
+                                <span>chegirmalar bugun!</span>
+
                             </div>
                         </div>
                     </div>
@@ -2730,8 +2733,9 @@
                 <div class="section-tag" style="background:rgba(245,158,11,0.12); border-color:rgba(245,158,11,0.2); color:var(--gold);">
                     <i class="fas fa-gift"></i> Maxsus taklif
                 </div>
-                <h2 class="section-title light" id="discount-title">Kafolatlangan <span>70% Chegirma!</span></h2>
-                <p class="section-subtitle" style="color:rgba(255,255,255,0.55); margin:0 auto;">Barabanni aylantiring — chegirmangiz har doim 70%!</p>
+                <h2 class="section-title light" id="discount-title">Omadingizni <span>sinab ko'ring!</span></h2>
+                <p class="section-subtitle" style="color:rgba(255,255,255,0.55); margin:0 auto;">Barabanni aylantiring va o'z chegirmangizni aniqlang. Bugun omad sizga kulib boqishi mumkin!</p>
+
             </div>
             <div class="discount-grid">
                 <!-- Wheel -->
@@ -2790,16 +2794,18 @@
 
                 <!-- Info -->
                 <div class="discount-info aos delay-2">
-                    <h3>Sizning chegirmangiz — <span>doim 70%!</span></h3>
-                    <p>Bu bizning marketing strategiyamiz: har bir mijozga kafolatlangan 70% chegirma beramiz. Barabanni aylantiring va buyurtma bering!</p>
+                    <h3>O'z chegirmangizni <span>qo'lga kiriting!</span></h3>
+                    <p>Bugun bizda omadli mijozlar uchun maxsus sovg'alar kuni. Barabanni aylantiring va maksimal chegirmaga ega bo'lish imkoniyatidan foydalaning!</p>
 
-                    <div class="discount-guaranteed-box">
-                        <div class="discount-guaranteed-num">70%</div>
+
+                    <div class="discount-guaranteed-box" id="luck-badge">
+                        <div class="discount-guaranteed-num" id="luck-num">?%</div>
                         <div class="discount-guaranteed-info">
-                            <strong>Kafolatlangan chegirma</strong>
-                            <span>Har bir buyurtma uchun — hech qanday shart yo'q</span>
+                            <strong id="luck-title">Sizning chegirmangiz</strong>
+                            <span id="luck-status">Aylantiring va aniqlang!</span>
                         </div>
                     </div>
+
 
                     <ul class="discount-features">
                         <li><i class="fas fa-check-double"></i> Bepul yetkazib berish (O'zbekiston bo'ylab)</li>
@@ -2809,7 +2815,8 @@
                         <li><i class="fas fa-check-double"></i> Cheklangan miqdor — tez buyurtma bering!</li>
                     </ul>
                     <button class="btn btn-red btn-lg" onclick="openOrderModal()" style="margin-top: 8px;">
-                        <i class="fas fa-shopping-cart"></i> 70% Chegirma bilan rasmiylashtirish
+                        <i class="fas fa-shopping-cart"></i> Yutuqni rasmiylashtirish
+
                     </button>
                 </div>
             </div>
@@ -2998,7 +3005,8 @@
                 <div style="background:rgba(224,16,32,0.06); border:1px solid rgba(224,16,32,0.12); border-radius:var(--radius-md); padding:12px 16px; margin-bottom:20px; text-align:center;">
                     <span style="font-size:0.82rem; color:var(--gray-700);">Sizning chegirmangiz: </span>
                     <span style="font-family:var(--font-primary); font-size:1.4rem; font-weight:900; color:var(--red);">70%</span>
-                    <span style="font-size:0.82rem; color:var(--gray-700);"> — kafolatlangan!</span>
+                    <span style="font-size:0.82rem; color:var(--gray-700);"> — tabriklaymiz!</span>
+
                 </div>
                 <form id="orderForm" onsubmit="submitOrder(event)" novalidate>
                     <div class="form-group">
@@ -3238,12 +3246,21 @@
                 wheelSpinning = false;
                 spinBtn.disabled = false;
                 spinBtn.innerHTML = '<i class="fas fa-arrows-rotate"></i> Aylantiring!';
-                // Always show 70%
+                // Update specific luck badge
+                const luckNum = document.getElementById('luck-num');
+                const luckTitle = document.getElementById('luck-title');
+                const luckStatus = document.getElementById('luck-status');
+                
+                if (luckNum) luckNum.textContent = '70%';
+                if (luckTitle) luckTitle.textContent = 'Tabriklaymiz!';
+                if (luckStatus) luckStatus.textContent = '70% chegirma qo\'lga kiritildi!';
+
                 document.getElementById('winnerDiscount').textContent = '70%';
-                document.getElementById('winnerMessage').textContent = 'Siz 70% chegirma qabul qildingiz! Hoziroq rasmiylashtiring!';
+                document.getElementById('winnerMessage').textContent = 'Siz 70% chegirma qo\'lga kiritdingiz! Hoziroq rasmiylashtiring!';
                 openModal('winnerModal');
                 launchConfetti();
             }, 4700);
+
         }
 
         // ============================================
