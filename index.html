@@ -3007,28 +3007,19 @@
                     </div>
                     <div class="form-group">
                         <label for="phone"><i class="fas fa-phone"></i> Telefon raqamingiz *</label>
-                        <input type="tel" id="phone" placeholder="+998 90 123 45 67" required autocomplete="tel">
+                        <input type="tel" id="phone" placeholder="+998 (__) ___-__-__" required autocomplete="tel">
+
                     </div>
-                    <div class="form-group">
-                        <label for="region"><i class="fas fa-map-marker-alt"></i> Viloyat / Shahar *</label>
-                        <select id="region" required>
-                            <option value="">Viloyatni tanlang</option>
-                            <option value="toshkent-sh">Toshkent shahri</option>
-                            <option value="toshkent-v">Toshkent viloyati</option>
-                            <option value="samarqand">Samarqand</option>
-                            <option value="buxoro">Buxoro</option>
-                            <option value="fargona">Farg'ona</option>
-                            <option value="namangan">Namangan</option>
-                            <option value="andijon">Andijon</option>
-                            <option value="qashqadaryo">Qashqadaryo</option>
-                            <option value="surxondaryo">Surxondaryo</option>
-                            <option value="jizzax">Jizzax</option>
-                            <option value="sirdaryo">Sirdaryo</option>
-                            <option value="navoiy">Navoiy</option>
-                            <option value="xorazm">Xorazm</option>
-                            <option value="qoraqalpogiston">Qoraqalpog'iston</option>
-                        </select>
+                    <div style="display: flex; align-items: center; gap: 10px; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-md); padding: 12px 16px; margin-bottom: 20px;">
+                        <div style="width: 38px; height: 38px; background: linear-gradient(135deg, #10B981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div>
+                            <strong style="display: block; color: var(--gray-900); font-size: 0.9rem; font-family: var(--font-primary);">100% Tabiiy Mahsulot</strong>
+                            <span style="display: block; color: var(--gray-500); font-size: 0.72rem;">Hech qanday kimyoviy qo'shimchalarsiz</span>
+                        </div>
                     </div>
+
                     <button type="submit" class="btn btn-red btn-xl btn-block btn-pulse" id="submitBtn">
                         <i class="fas fa-paper-plane"></i> Chegirmada buyurtma berish
                     </button>
@@ -3319,10 +3310,11 @@
             const hint = el.parentNode.querySelector('.field-hint');
             if (hint) hint.remove();
         }
-        ['fullName','phone','region'].forEach(id => {
+        ['fullName','phone'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.addEventListener('input', () => clearFieldError(id));
         });
+
 
         // ============================================
         // TELEGRAM SEND — with retry logic
@@ -3366,7 +3358,6 @@
 
             const name    = document.getElementById('fullName').value.trim();
             const phone   = document.getElementById('phone').value.trim();
-            const region  = document.getElementById('region').value;
 
             // --- Client-side validation ---
             let hasError = false;
@@ -3378,11 +3369,8 @@
                 showFieldError('phone', 'Telefon raqamini to\'g\'ri kiriting: +998 XX XXX XX XX');
                 hasError = true;
             }
-            if (!region) {
-                showFieldError('region', 'Viloyatni tanlang.');
-                hasError = true;
-            }
             if (hasError) return;
+
 
             // --- Show loader ---
             isSubmitting = true;
@@ -3398,14 +3386,7 @@
             const now      = new Date();
             const dateStr  = now.toLocaleDateString('ru-RU') + ' ' + now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
 
-            const regionLabels = {
-                'toshkent-sh': 'Toshkent shahri', 'toshkent-v': 'Toshkent viloyati',
-                'samarqand': 'Samarqand', 'buxoro': 'Buxoro', 'fargona': "Farg'ona",
-                'namangan': 'Namangan', 'andijon': 'Andijon', 'qashqadaryo': 'Qashqadaryo',
-                'surxondaryo': 'Surxondaryo', 'jizzax': 'Jizzax', 'sirdaryo': 'Sirdaryo',
-                'navoiy': 'Navoiy', 'xorazm': 'Xorazm', 'qoraqalpogiston': "Qoraqalpog'iston"
-            };
-            const regionLabel = regionLabels[region] || region;
+
 
             const msg = [
                 `<b>&#128722; YANGI BUYURTMA — Xondroleks Uno</b>`,
@@ -3415,7 +3396,7 @@
                 ``,
                 `<b>&#128100; Mijoz:</b> ${name}`,
                 `<b>&#128222; Telefon:</b> <code>${phone}</code>`,
-                `<b>&#128205; Viloyat:</b> ${regionLabel}`,
+
                 ``,
                 `<b>&#128176; Chegirma:</b> 70% (kafolatlangan)`,
                 `<b>&#128230; Holati:</b> Yangi — qayta aloqa kerak`
@@ -3542,6 +3523,65 @@
                 }
             });
         });
+
+        // ============================================
+        // PHONE MASKING (+998 (XX) XXX-XX-XX)
+        // ============================================
+        const phoneInput = document.getElementById('phone');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function(e) {
+                let cursorPosition = e.target.selectionStart;
+                let value = e.target.value.replace(/\D/g, '');
+                
+                // Always ensure it starts with 998
+                if (!value.startsWith('998')) {
+                    value = '998' + value;
+                }
+                
+                // Limit to 12 digits
+                value = value.substring(0, 12);
+                
+                let formatted = '+998';
+                if (value.length > 3) {
+                    formatted += ' (' + value.substring(3, 5);
+                }
+                if (value.length > 5) {
+                    formatted += ') ' + value.substring(5, 8);
+                }
+                if (value.length > 8) {
+                    formatted += '-' + value.substring(8, 10);
+                }
+                if (value.length > 10) {
+                    formatted += '-' + value.substring(10, 12);
+                }
+                
+                e.target.value = formatted;
+                
+                // Basic cursor management (keep it at the end if we just added formatting)
+                // In a perfect world we'd calculate the exact position, but this is usually enough for CMs
+            });
+
+            phoneInput.addEventListener('focus', function(e) {
+                if (!e.target.value || e.target.value === '') {
+                    e.target.value = '+998 ';
+                }
+            });
+
+            phoneInput.addEventListener('keydown', function(e) {
+                // Prevent deleting the prefix
+                if (e.key === 'Backspace' && e.target.value.length <= 5) {
+                    e.preventDefault();
+                }
+            });
+
+            // Handle paste
+            phoneInput.addEventListener('paste', function(e) {
+                setTimeout(() => {
+                    phoneInput.dispatchEvent(new Event('input'));
+                }, 0);
+            });
+        }
+
     </script>
 </body>
 </html>
